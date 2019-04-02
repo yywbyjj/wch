@@ -7,6 +7,15 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="site" content="content site">
+	<meta name="Site" content="content Site">
+	<meta name="title" content="content title">
+	<meta name="Title" content="content Title">
+	<link rel="stylesheet" href="../dist/css/share.min.css">
+
+	<style>
+		.row-pad{padding: 20px 0 0 20px}
+	</style>
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
 <title>主体内容</title>
 <%
@@ -173,6 +182,9 @@
 													</c:if>
 												</div>
 											</div>
+											<div class="row-pad">
+												<div class="share-2"></div>
+											</div>
 										</div>
 				
 										<!-- 用户登录后才显示评论框 -->
@@ -298,5 +310,10 @@
 	
 	<script src="${APP_PATH }/static/js/phones_pc.js"></script>
 	<script src="${APP_PATH }/static/js/load_more.js"></script>
+	<script src="http://apps.bdimg.com/libs/jquery/1.8.2/jquery.js"></script>
+	<script src="../dist/js/jquery.share.min.js"></script>
+	<script>
+		$('.share-2').share({sites: ['qzone', 'qq', 'weibo','wechat']});
+	</script>
 </body>
 </html>
