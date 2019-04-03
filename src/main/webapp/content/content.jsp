@@ -7,10 +7,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="site" content="content site">
-	<meta name="Site" content="content Site">
-	<meta name="title" content="content title">
-	<meta name="Title" content="content Title">
+
 	<link rel="stylesheet" href="../dist/css/share.min.css">
 
 	<style>
@@ -110,7 +107,7 @@
 												<a class="bottom_left_aaa a_b" href="#">
 													<h4>
 														<!-- 帖子标题 -->
-														<b>${listArticle.titles }</b>
+														<b id="sharetitle">${listArticle.titles }</b>
 													</h4>
 												</a>
 											</div>
@@ -119,7 +116,7 @@
 										<div class="row">
 											<div class="col-md-12">
 												<!-- 帖子内容 -->
-												<p>${listArticle.fcontent }</p>
+												<p id="sharecontent">${listArticle.fcontent }</p>
 											</div>
 										</div>
 				
@@ -132,7 +129,7 @@
 																src="${APP_PATH}/static/upload/article/${listArticle.photo }"></video>
 														</c:if>
 														<c:if test="${!listArticle.photo.endsWith(\".mp4\")&&!listArticle.photo.endsWith(\".avi\") }">
-															<img class="img_content"
+															<img class="img_content shareimg"
 																src="${APP_PATH}/static/upload/article/${listArticle.photo }">
 														</c:if>
 													</a>
@@ -313,7 +310,26 @@
 	<script src="http://apps.bdimg.com/libs/jquery/1.8.2/jquery.js"></script>
 	<script src="../dist/js/jquery.share.min.js"></script>
 	<script>
-		$('.share-2').share({sites: ['qzone', 'qq', 'weibo','wechat']});
+		//一键分享相关配置
+		var $config = {
+			url                 : '', // 网址，默认使用 window.location.href
+			source              : '', // 来源（QQ空间会用到）, 默认读取head标签：<meta name="site" content="http://overtrue" />
+			title               : '', // 标题，默认读取 document.title 或者 <meta name="title" content="share.js" />
+			origin              : '', // 分享 @ 相关 twitter 账号
+			description         : '', // 描述, 默认读取head标签：<meta name="description" content="PHP弱类型的实现原理分析" />
+			image               : '', // 图片, 默认取网页中第一个img标签
+			sites               : ['qzone', 'qq', 'weibo','wechat'], // 启用的站点
+			disabled            : ['google', 'facebook', 'twitter'], // 禁用的站点
+			wechatQrcodeTitle   : '微信扫一扫：分享', // 微信二维码提示文字
+			wechatQrcodeHelper  : '<p>微信里点“发现”，扫一下</p><p>二维码便可将本文分享至朋友圈。</p>'
+		};
+		$('.share-2').each(function () {
+			$config.url='http://m.goczx.com/';
+			$config.title=$(this).parents('.show_article_go').find('#sharetitle').html();
+			$config.description=$(this).parents('.show_article_go').find('#sharecontent').html();
+			$config.image="http://localhost:8080"+$(this).parents('.show_article_go').find('.shareimg').attr('src');
+			$(this).share($config);
+		})
 	</script>
 </body>
 </html>
