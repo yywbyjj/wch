@@ -29,7 +29,7 @@
 			<div id="content_left">
 				<!--代码部分begin-->
 				<div class="jq22">
-					<div class="hidden">
+					<div>
 						<!--此处进行循环展示-->
 						<c:forEach var="listArticle" items="${listArticle }">
 							<!-- 只显示通过审核的帖子 -->
@@ -237,7 +237,7 @@
 						<!--此处进行循环展示-end -->
 					</div>
 					<div class="list">数据加载中，请稍后...</div>
-					<div class="text-center more"><a class="text-info" href="javascript:;" onClick="jq22.loadMore();">点击--->加载更多</a></div>
+					<div class="text-center more"><a class="text-info" href="javascript:;" onClick="loadmore();">点击--->加载更多</a></div>
 				</div>
 				<div class="row">
 					<div class="col-md-12"
@@ -310,6 +310,22 @@
 	<script src="http://apps.bdimg.com/libs/jquery/1.8.2/jquery.js"></script>
 	<script src="../dist/js/jquery.share.min.js"></script>
 	<script>
+		var n = 3;
+		var length = $(".jq22 .show_article").length;
+		$(document).ready(function () {
+			for (var i = n; i < length; i++) {
+				$(".jq22 .show_article").eq(i).addClass('hide');
+			}
+		});
+		function loadmore() {
+			for (var i = n; i < n+3; i++) {
+				$(".jq22 .show_article").eq(i).removeClass('hide');
+			}
+			n += 3;
+			if (n>=length){
+				$('.jq22 .more').html("<p class='text-danger'>没有更多帖子了...</p>");
+			}
+		}
 		//一键分享相关配置
 		var $config = {
 			url                 : '', // 网址，默认使用 window.location.href
@@ -329,7 +345,7 @@
 			$config.description=$(this).parents('.show_article_go').find('#sharecontent').html();
 			$config.image="http://localhost:8080"+$(this).parents('.show_article_go').find('.shareimg').attr('src');
 			$(this).share($config);
-		})
+		});
 	</script>
 </body>
 </html>
